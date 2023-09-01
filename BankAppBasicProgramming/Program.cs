@@ -19,7 +19,7 @@ void MainMeny()
     Console.WriteLine("11. Add Customer to Account");
     Console.WriteLine("12. Remove Customer to Account");
     Console.WriteLine("13. Exit");
-    Console.Write("Please choose a number (1-11): ");
+    Console.Write("Please choose a number (1-13): ");
     string choice = Console.ReadLine();
 
     switch (choice)
@@ -476,8 +476,5 @@ void removeCustomerToAccount()
     Console.WriteLine("");
     MainMeny();
 }
-
-
-
 
 MainMeny();

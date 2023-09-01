@@ -133,7 +133,7 @@ namespace DAL
             data[toEditIndex] = new Dictionary<string, string> 
             {
                 { "id",  toEdit["id"]},
-                { "customerId", name == "" ? toEdit["customerIds"] : name },
+                { "customerId", customerIds == "" ? toEdit["customerId"] : customerIds },
                 { "name", name == "" ? toEdit["name"] : name },
                 { "loan", loan == "" ? toEdit["loan"] : loan },
                 { "mainSaldo", mainSaldo == "" ? toEdit["mainSaldo"] : mainSaldo },

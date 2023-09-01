@@ -72,10 +72,6 @@ namespace BLL
                     int.Parse(mainSaldo);
                 }
 
-                if(customerId != ""){
-                    customerId.Split(",").ToList();
-                }
-
                 AccountsDatabase.editAccount(name, id, loan, mainSaldo, customerId);
                 return "Edited";
             }
@@ -150,13 +146,14 @@ namespace BLL
         {
             Dictionary<string, string> account = AccountsDatabase.getAccountById(id);
             List<string> customerIds = account["customerId"].Split(",").ToList();
-            if (customerId.Contains(customerId))
+            if (customerIds.Contains(customerId))
             {
                 return "Customer is already a part of this account";
             }
 
             customerIds.Add(customerId);
-            editAccount("", id, "", "", customerId);
+            string customerIdsString = String.Join(",", customerIds.ToArray());
+            editAccount("", id, "", "", customerIdsString);
             Dictionary<string, string> updatedAccount = AccountsDatabase.getAccountById(id);
             string updatedAccountCustomerIds = updatedAccount["customerId"];
 
@@ -168,14 +165,18 @@ namespace BLL
         {
             Dictionary<string, string> account = AccountsDatabase.getAccountById(id);
             List<string> customerIds = account["customerId"].Split(",").ToList();
-            if (customerId.Contains(customerId))
+            if (!customerId.Contains(customerId))
             {
                 return "Customer is not a part of account";
             }
 
             int index = customerIds.IndexOf(customerId);
+            Console.WriteLine(index);
+            Console.WriteLine(customerIds[0]);
             customerIds.RemoveAt(index);
-            editAccount("", id, "", "", customerId);
+
+            string customerIdsString = String.Join(",", customerIds.ToArray());
+            editAccount("", id, "", "", customerIdsString);
             Dictionary<string, string> updatedAccount = AccountsDatabase.getAccountById(id);
             string updatedAccountCustomerIds = updatedAccount["customerId"];
 
