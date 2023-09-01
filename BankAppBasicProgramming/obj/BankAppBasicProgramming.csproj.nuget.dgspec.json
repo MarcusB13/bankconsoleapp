@@ -1,0 +1,194 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/marcusbager/Projects/BankAppBasicProgramming/BankAppBasicProgramming/BankAppBasicProgramming.csproj": {}
+  },
+  "projects": {
+    "/Users/marcusbager/Projects/BankAppBasicProgramming/BankAppBasicProgramming/BankAppBasicProgramming.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/marcusbager/Projects/BankAppBasicProgramming/BankAppBasicProgramming/BankAppBasicProgramming.csproj",
+        "projectName": "BankAppBasicProgramming",
+        "projectPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/BankAppBasicProgramming/BankAppBasicProgramming.csproj",
+        "packagesPath": "/Users/marcusbager/.nuget/packages/",
+        "outputPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/BankAppBasicProgramming/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/marcusbager/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/BLL.csproj": {
+                "projectPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/BLL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/BLL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/BLL.csproj",
+        "projectName": "BLL",
+        "projectPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/BLL.csproj",
+        "packagesPath": "/Users/marcusbager/.nuget/packages/",
+        "outputPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/marcusbager/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/DAL.csproj": {
+                "projectPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/DAL.csproj",
+        "projectName": "DAL",
+        "projectPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/DAL.csproj",
+        "packagesPath": "/Users/marcusbager/.nuget/packages/",
+        "outputPath": "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/marcusbager/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

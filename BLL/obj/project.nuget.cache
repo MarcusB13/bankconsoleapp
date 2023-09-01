@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Pm7AttGs4EmO0zdUI8tAPDDtt/QKL9ynMAw/pYiOE6Y4DJYp1VyrCiQVkROJzZxR/iOggtVhTm8D5+AYh+cSYA==",
+  "success": true,
+  "projectFilePath": "/Users/marcusbager/Projects/BankAppBasicProgramming/BLL/BLL.csproj",
+  "expectedPackageFiles": [
+    "/Users/marcusbager/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/Users/marcusbager/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
+    "/Users/marcusbager/.nuget/packages/system.text.json/7.0.3/system.text.json.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

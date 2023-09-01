@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DAL/Class1.cs">
+    <Files>
+      <File FileName="BankAppBasicProgramming/Program.cs" Line="4" Column="1" />
+      <File FileName="BLL/Class1.cs" Line="1" Column="1" />
+      <File FileName="DAL/Class1.cs" Line="8" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="BankAppBasicProgramming" expanded="True">
+            <Node name="BankAppBasicProgramming" expanded="True" />
+            <Node name="BLL" expanded="True" />
+            <Node name="DAL" expanded="True">
+              <Node name="Class1.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.DAL FirstBuild="True" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.BLL FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.BankAppBasicProgramming FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

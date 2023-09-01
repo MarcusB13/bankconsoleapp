@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAppBasicProgramming", "BankAppBasicProgramming\BankAppBasicProgramming.csproj", "{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{8CED5CA5-9968-4B94-9936-90ADE6F0A54D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{91B30FC1-28CC-409B-B2F4-5200B7F3C0BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CED5CA5-9968-4B94-9936-90ADE6F0A54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CED5CA5-9968-4B94-9936-90ADE6F0A54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CED5CA5-9968-4B94-9936-90ADE6F0A54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CED5CA5-9968-4B94-9936-90ADE6F0A54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B30FC1-28CC-409B-B2F4-5200B7F3C0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B30FC1-28CC-409B-B2F4-5200B7F3C0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B30FC1-28CC-409B-B2F4-5200B7F3C0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B30FC1-28CC-409B-B2F4-5200B7F3C0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9C4DAD7-708D-461E-87EE-A7AF5F75A3D9}
+	EndGlobalSection
+EndGlobal

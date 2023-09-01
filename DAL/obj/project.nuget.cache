@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "UhKyAL/x2H24T7Km37bqD4lI1UUbIPXV6hTA/+Zbwg7/zMfs7lywTyLc5MhYJAiGDmnx3W099HpcxCVXTNLoWw==",
+  "success": true,
+  "projectFilePath": "/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/DAL.csproj",
+  "expectedPackageFiles": [
+    "/Users/marcusbager/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
+    "/Users/marcusbager/.nuget/packages/system.text.json/7.0.3/system.text.json.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
