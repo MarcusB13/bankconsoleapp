@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using DAL;
 
@@ -6,165 +7,131 @@ namespace BLL
 {
 	public class Accounts
 	{
-        private string customerId;
-        private string name;
-        private string id;
-        private string mainSaldo;
-        private string loan;
-
-        public string CustomerId
-        {
-            get { return customerId; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public string Id
-        {
-            get { return id; }
-        }
-
-        public string MainSaldo
-        {
-            get { return MainSaldo; }
-        }
-
-        public string Loan
-        {
-            get { return loan; }
-        }
-
-
-
-        public Accounts(string bankName, string customersId)
+        private JsonHandler _JsonHandler;
+		public Accounts(JsonHandler jsonHandler)
 		{
-            customerId = customersId;
-            name = bankName;
-            loan = "0";
-            mainSaldo = "0";
-            id = AccountsDatabase.nextId();
+            _JsonHandler = jsonHandler;
 
-            Dictionary<string, string> customerData = new Dictionary<string, string> {
-                { "id", id },
-                { "customerId", customerId },
-                { "name", name },
-                { "loan", loan },
-                { "mainSaldo", mainSaldo },
-            };
-
-            AccountsDatabase.addAccount(customerData);
         }
 
-        static public string editAccount(string name, string id, string loan, string mainSaldo, string customerId)
+        public Account CreateAccount(string name, string customerId, int loan, int mainSaldo)
+        {
+            int length = _JsonHandler.Read<Account>().Count();
+
+            string id = (length + 1).ToString();
+            Account account = new Account { name = name, id = id, customerId = customerId, loan = loan, mainSaldo = mainSaldo };
+
+            List<Account> accounts = _JsonHandler.Read<Account>();
+            accounts.Add(account);
+
+            _JsonHandler.Write(accounts);
+            return account;
+        }
+
+        public Account? editAccount(string name, string id, int? loan, int? mainSaldo, string customerIds)
         {
             try
             {
-                if (loan != "")
-                {
-                    int.Parse(loan);
-                }
-                if (mainSaldo != "")
-                {
-                    int.Parse(mainSaldo);
-                }
+                List<Account> accounts = _JsonHandler.Read<Account>();
+                Account account = accounts.FirstOrDefault(e => e.id == id);
 
-                AccountsDatabase.editAccount(name, id, loan, mainSaldo, customerId);
-                return "Edited";
+                account.name = name == "" ? account.name : name;
+                account.loan = loan == null ? account.loan : loan;
+                account.mainSaldo = mainSaldo == null ? account.mainSaldo : mainSaldo;
+                account.customerId = customerIds == null ? account.customerId : customerIds;
+
+                _JsonHandler.Write(accounts);
+                return account;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return "Not editd";
+                return null;
             }
         }
 
-        static public List<Dictionary<string, string>> GetAllAccounts()
+        public List<Account>? GetAllAccounts()
         {
-            return AccountsDatabase.getAllAccounts();
+            List<Account> accounts = _JsonHandler.Read<Account>();
+            return accounts;
         }
 
-        static public List<Dictionary<string, string>> GetAccountByCustomerId(string id)
+        public List<Account>? GetAccountByCustomerId(string id)
         {
-            return AccountsDatabase.getAccountByCustomerId(id);
+            List<Account> accounts = _JsonHandler.Read<Account>();
+            List<Account> foundAccounts = accounts.FindAll(e => e.customerId == id);
+            return foundAccounts;
         }
 
-        static public Dictionary<string, string> GetAccountById(string id)
+        public Account? GetAccountById(string id)
         {
-            return AccountsDatabase.getAccountById(id);
+            List<Account> accounts = _JsonHandler.Read<Account>();
+            Account account = accounts.FirstOrDefault(e => e.id == id);
+            return account;
         }
 
-        static public void addMoneyToSaldo( string value, string id)
+        public void addMoneyToSaldo(string input, string id)
         {
-            editAccount("", id, "", value, "");
+            int value = int.Parse(input);
+            editAccount("", id, null, value, "");
         }
 
-        static public int getCurrentLoan(string id)
+        public int? getCurrentLoan(string id)
         {
-            int loan = int.Parse(AccountsDatabase.getAccountById(id)["loan"]);
+            int? loan = GetAccountById(id).loan;
             return loan;
         }
 
-        static public int getCurrentSaldo(string id)
+        public int? getCurrentSaldo(string id)
         {
-            int mainSaldo = int.Parse(AccountsDatabase.getAccountById(id)["mainSaldo"]);
+            int? mainSaldo = GetAccountById(id).mainSaldo;
             return mainSaldo;
         }
 
-        static public void takeLoan(int value, string id)
+        public void takeLoan(int value, string id)
         {
-            Dictionary<string, string> account = AccountsDatabase.getAccountById(id);
-            int loan = int.Parse(account["loan"]);
-            int mainSaldo = int.Parse(account["mainSaldo"]);
+            Account account = GetAccountById(id);
+            int? loan = account.loan;
+            int? mainSaldo = account.mainSaldo;
 
             loan += value;
             mainSaldo += value;
-
-            string stringLoan = loan.ToString();
-            string stringMainSaldo = mainSaldo.ToString();
-            editAccount("", id, stringLoan, stringMainSaldo, "");
+            editAccount("", id, loan, mainSaldo, "");
         }
 
-        static public void payOffLoan(int value, string id)
+        public void payOffLoan(int value, string id)
         {
-            Dictionary<string, string> account = AccountsDatabase.getAccountById(id);
-            int loan = int.Parse(account["loan"]);
-            int mainSaldo = int.Parse(account["mainSaldo"]);
+            Account account = GetAccountById(id);
+            int? loan = account.loan;
+            int? mainSaldo = account.mainSaldo;
 
             loan -= value;
             mainSaldo -= value;
-
-            string stringLoan = loan.ToString();
-            string stringMainSaldo = mainSaldo.ToString();
-            editAccount("", id, stringLoan, stringMainSaldo, "");
+            editAccount("", id, loan, mainSaldo, "");
         }
 
-        static public string addCustomerToAccount(string customerId, string id)
+        public string addCustomerToAccount(string customerId, string id)
         {
-            Dictionary<string, string> account = AccountsDatabase.getAccountById(id);
-            List<string> customerIds = account["customerId"].Split(",").ToList();
+            Account account = GetAccountById(id);
+            List<string> customerIds = account.customerId.Split(",").ToList();
             if (customerIds.Contains(customerId))
             {
                 return "Customer is already a part of this account";
             }
 
             customerIds.Add(customerId);
+
             string customerIdsString = String.Join(",", customerIds.ToArray());
-            editAccount("", id, "", "", customerIdsString);
-            Dictionary<string, string> updatedAccount = AccountsDatabase.getAccountById(id);
-            string updatedAccountCustomerIds = updatedAccount["customerId"];
+            editAccount("", id, null, null, customerIdsString);
 
-
+            Account updatedAccount = GetAccountById(id);
+            string updatedAccountCustomerIds = updatedAccount.customerId;
             return "Account now has following customer ids: " + updatedAccountCustomerIds;
         }
 
-        static public string removeCustomerToAccount(string customerId, string id)
+        public string removeCustomerToAccount(string customerId, string id)
         {
-            Dictionary<string, string> account = AccountsDatabase.getAccountById(id);
-            List<string> customerIds = account["customerId"].Split(",").ToList();
+            Account account = GetAccountById(id);
+            List<string> customerIds = account.customerId.Split(",").ToList();
             if (!customerId.Contains(customerId))
             {
                 return "Customer is not a part of account";
@@ -176,11 +143,10 @@ namespace BLL
             customerIds.RemoveAt(index);
 
             string customerIdsString = String.Join(",", customerIds.ToArray());
-            editAccount("", id, "", "", customerIdsString);
-            Dictionary<string, string> updatedAccount = AccountsDatabase.getAccountById(id);
-            string updatedAccountCustomerIds = updatedAccount["customerId"];
+            editAccount("", id, null, null, customerIdsString);
 
-
+            Account updatedAccount = GetAccountById(id);
+            string updatedAccountCustomerIds = updatedAccount.customerId;
             return "Account now has following customer ids: " + updatedAccountCustomerIds;
         }
     }

@@ -1,105 +1,80 @@
 ﻿using System;
-using System.IO;
-using System.Text.Json;
-using Newtonsoft.Json;
+using System.Xml.Linq;
+using BLL;
 using DAL;
-
 
 namespace BLL
 {
-    public class Customers
-    {
-        private string name;
-        private string id;
-        private string birthDay;
-        private string saldo;
-        private string mainAccountId;
-
-        public string Name
-        {
-            get { return name;  }
-            set { name = value; }
+	public class Customers
+	{
+        private JsonHandler _JsonHandler;
+        private Accounts _AccountHandler;
+        public Customers(JsonHandler jsonHandler)
+		{
+            _JsonHandler = jsonHandler;
         }
 
-        public string Id
+        public Customer CreateCustomer(string name, string birthDay)
         {
-            get { return id; }
+            int length = _JsonHandler.Read<Customer>().Count();
+            
+            string id = (length + 1).ToString();
+            Customer customer = new Customer { name = name, birthDay = birthDay, id=id };
+
+            List<Customer> customers = _JsonHandler.Read<Customer>();
+            customers.Add(customer);
+
+            _JsonHandler.Write(customers);
+            return customer;
         }
 
-        public string MainAccountId
-        {
-            get { return mainAccountId; }
-        }
-
-        public string Saldo
-        {
-            get { return id; }
-        }
-
-        public string BirthDay
-        {
-            get { return birthDay; }
-        }
-                
-        public Customers(string newName, string newBirthDay)
-        {
-            name = newName;
-            birthDay = newBirthDay;
-            if (name.Split(" ")[1] == null)
-            {
-                throw new NullReferenceException("Customer needs a last name");
-            }
-
-            saldo = "0";
-            id = CustomerDatabasse.nextId();
-
-            Accounts account = new Accounts("Bank for " + name, id);
-
-            mainAccountId = account.Id;
-
-            Dictionary<string, string> customerData = new Dictionary<string, string> {
-                { "id", id },
-                { "name", name },
-                { "birthday", birthDay },
-                { "saldo", saldo },
-                { "mainAccountId", mainAccountId },
-            };
-
-            CustomerDatabasse.addCustomer(customerData);
-        }
-
-        static public string editCustomer(string id, string name, string birthday, string saldo)
+        public Customer? editCustomer(string id, string name, string birthday, string mainAccountId)
         {
             try
             {
-                int.Parse(saldo);
+                List<Customer> customers = _JsonHandler.Read<Customer>();
+                Customer customer = customers.FirstOrDefault(e => e.id == id);
+
                 if (name.Split(" ").Length < 2)
                 {
                     // Then we don't edit the name
-                    name = "";
+                    name = customer.name;
                 }
-                CustomerDatabasse.editCustomer(id, name, birthday, saldo);
-                return "Edited";
+
+                customer.name = name;
+                customer.birthDay = birthday == "" ? customer.birthDay : birthday;
+                customer.mainAccountId = mainAccountId == "" ? customer.mainAccountId : mainAccountId;
+
+                _JsonHandler.Write(customers);
+                return customer;
             }
             catch (Exception e)
             {
-                return e.Message;
+                return null;
             }
         }
 
-        static public List<Dictionary<string, string>> getAllCustomers()
+
+        public List<Customer> getAllCustomers()
         {
-            return CustomerDatabasse.getAllCustomer();
+            List<Customer> customers = _JsonHandler.Read<Customer>();
+            return customers;
         }
 
-        static public Dictionary<string, string> GetCustomerByName(string name)
+        public Customer GetCustomerByName(string name)
         {
-            return CustomerDatabasse.getCustomerByName(name);
+            List<Customer> customers = _JsonHandler.Read<Customer>();
+            Customer customer = customers.FirstOrDefault(e => e.name == name);
+
+            return customer;
         }
 
-        static public Dictionary<string, string> GetCustomerById(string id)
+        public Customer GetCustomerById(string id)
         {
-            return CustomerDatabasse.getCustomerById(id);
+            List<Customer> customers = _JsonHandler.Read<Customer>();
+            Customer customer = customers.FirstOrDefault(e => e.id == id);
+
+            return customer;
         }
 
 

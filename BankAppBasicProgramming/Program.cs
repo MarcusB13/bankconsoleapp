@@ -2,6 +2,11 @@
 using System;
 using System.Xml.Linq;
 using BLL;
+using DAL;
+
+
+Accounts Accounts = new Accounts(new JsonHandler("/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/accounts.json"));
+Customers Customers = new Customers(new JsonHandler("/Users/marcusbager/Projects/BankAppBasicProgramming/DAL/customers.json"));
 
 void MainMeny()
 {
@@ -79,26 +84,16 @@ void MainMeny()
 
 void GetAllCustomers()
 {
-    List<Dictionary<string, string>>  customers = BLL.Customers.getAllCustomers();
+    List<Customer>  customers = Customers.getAllCustomers();
     customers.ForEach(customer =>
     {
-        
-        Console.WriteLine(customer["name"] + ":");
-        Console.WriteLine("    Id: " + customer["id"]);
-        Console.WriteLine("    Birthday: " + customer["birthday"]);
-        Console.WriteLine("    Saldo: " + customer["saldo"]);
-        Console.WriteLine("    Main account: " + customer["mainAccountId"]);
-        Console.WriteLine("");
 
-        List<Dictionary<string, string>> customerAccounts = Accounts.GetAccountByCustomerId(customer["id"]);
+        printCustomer(customer);
+
+        List<Account>? customerAccounts = Accounts.GetAccountByCustomerId(customer.id);
         customerAccounts.ForEach(account =>
         {
-            Console.WriteLine("        Id: " + account["id"]);
-            Console.WriteLine("        customerId: " + account["customerId"]);
-            Console.WriteLine("        Account name: " + account["name"]);
-            Console.WriteLine("        Current loan: " + account["loan"]);
-            Console.WriteLine("        Saldo: " + account["mainSaldo"]);
-            Console.WriteLine("");
+            printAccount(account);
         });
         Console.WriteLine("");
     });
@@ -110,24 +105,14 @@ void GetCustomerByName()
 {
     Console.Write("What name would you like to look for: ");
     string name = Console.ReadLine();
-    Dictionary<string, string> customer = BLL.Customers.GetCustomerByName(name);
+    Customer customer = Customers.GetCustomerByName(name);
 
-    Console.WriteLine(customer["name"] + ":");
-    Console.WriteLine("    Id: " + customer["id"]);
-    Console.WriteLine("    Birthday: " + customer["birthday"]);
-    Console.WriteLine("    Saldo: " + customer["saldo"]);
-    Console.WriteLine("    Main account: " + customer["mainAccountId"]);
-    Console.WriteLine("");
+    printCustomer(customer);
 
-    List<Dictionary<string, string>> customerAccounts = Accounts.GetAccountByCustomerId(customer["id"]);
+    List<Account> customerAccounts = Accounts.GetAccountByCustomerId(customer.id);
     customerAccounts.ForEach(account =>
     {
-        Console.WriteLine("        Id: " + account["id"]);
-        Console.WriteLine("        customerId: " + account["customerId"]);
-        Console.WriteLine("        Account name: " + account["name"]);
-        Console.WriteLine("        Current loan: " + account["loan"]);
-        Console.WriteLine("        Saldo: " + account["mainSaldo"]);
-        Console.WriteLine("");
+        printAccount(account);
     });
     Console.WriteLine("");
     MainMeny();
@@ -137,24 +122,14 @@ void GetCustomerById()
 {
     Console.Write("What id would you like to look for: ");
     string id = Console.ReadLine();
-    Dictionary<string, string> customer = BLL.Customers.GetCustomerById(id);
+    Customer customer = Customers.GetCustomerById(id);
 
-    Console.WriteLine(customer["id"] + ":");
-    Console.WriteLine("    Name: " + customer["name"]);
-    Console.WriteLine("    Birthday: " + customer["birthday"]);
-    Console.WriteLine("    Saldo: " + customer["saldo"]);
-    Console.WriteLine("    Main account: " + customer["mainAccountId"]);
-    Console.WriteLine("");
+    printCustomer(customer);
 
-    List<Dictionary<string, string>> customerAccounts = Accounts.GetAccountByCustomerId(customer["id"]);
+    List<Account> customerAccounts = Accounts.GetAccountByCustomerId(customer.id);
     customerAccounts.ForEach(account =>
     {
-        Console.WriteLine("        Id: " + account["id"]);
-        Console.WriteLine("        customerId: " + account["customerId"]);
-        Console.WriteLine("        Account name: " + account["name"]);
-        Console.WriteLine("        Current loan: " + account["loan"]);
-        Console.WriteLine("        Saldo: " + account["mainSaldo"]);
-        Console.WriteLine("");
+        printAccount(account);
     });
     Console.WriteLine("");
     MainMeny();
@@ -167,23 +142,18 @@ void AddCustomer()
 
     Console.Write("What is the birthday for the new customer (Fx. 27-12-04): ");
     string birthday = Console.ReadLine();
-    BLL.Customers customer = new BLL.Customers(name, birthday);
-    Console.WriteLine(customer.Name + ":");
-    Console.WriteLine("    Id: " + customer.Id);
-    Console.WriteLine("    Birthday: " + customer.BirthDay);
-    Console.WriteLine("    Saldo: " + customer.Saldo);
-    Console.WriteLine("    Main account: " + customer.MainAccountId);
-    Console.WriteLine("");
 
-    List<Dictionary<string, string>> customerAccounts = Accounts.GetAccountByCustomerId(customer.Id);
+    Customer customer = Customers.CreateCustomer(name, birthday);
+
+    Account account = Accounts.CreateAccount(name + " Account", customer.id, 0, 0);
+    customer = Customers.editCustomer(customer.id, "", "", account.id);
+
+    printCustomer(customer);
+
+    List<Account> customerAccounts = Accounts.GetAccountByCustomerId(customer.id);
     customerAccounts.ForEach(account =>
     {
-        Console.WriteLine("        Id: " + account["id"]);
-        Console.WriteLine("        customerId: " + account["customerId"]);
-        Console.WriteLine("        Account name: " + account["name"]);
-        Console.WriteLine("        Current loan: " + account["loan"]);
-        Console.WriteLine("        Saldo: " + account["mainSaldo"]);
-        Console.WriteLine("");
+        printAccount(account);
     });
     Console.WriteLine("");
 
@@ -214,11 +184,8 @@ void EditCustomer()
     Console.Write("What is the new birthday for the customer (Leave blank to not edit): ");
     string birthday = Console.ReadLine();
 
-    Console.Write("What is the new saldo for the customer (Leave blank to not edit): ");
-    string saldo = Console.ReadLine();
-
     Console.WriteLine();
-    Console.WriteLine(BLL.Customers.editCustomer(id, name, birthday, saldo));
+    printCustomer(Customers.editCustomer(id, name, birthday, ""));
     Console.WriteLine();
     MainMeny();
 }
@@ -241,21 +208,17 @@ void AddAccount()
         return;
     }
 
-    new Accounts(accountName, customersId);
+    Account account = Accounts.CreateAccount(accountName, customersId, 0, 0);
+    printAccount(account);
     MainMeny();
 }
 
 void getAllAccounts()
 {
-    List<Dictionary<string, string>> customerAccounts = Accounts.GetAllAccounts();
+    List<Account>? customerAccounts = Accounts.GetAllAccounts();
     customerAccounts.ForEach(account =>
     {
-        Console.WriteLine("        id: " + account["id"]);
-        Console.WriteLine("        customerId: " + account["customerId"]);
-        Console.WriteLine("        Account name: " + account["name"]);
-        Console.WriteLine("        Current loan: " + account["loan"]);
-        Console.WriteLine("        Saldo: " + account["mainSaldo"]);
-        Console.WriteLine("");
+        printAccount(account);
     });
     Console.WriteLine("");
     MainMeny();
@@ -350,7 +313,7 @@ void payOffLoan()
         return;
     }
 
-    int currentLoan = Accounts.getCurrentLoan(id);
+    int? currentLoan = Accounts.getCurrentLoan(id);
     if (currentLoan == 0)
     {
         Console.WriteLine("This account do not currenly have a loan!");
@@ -359,7 +322,7 @@ void payOffLoan()
         return;
     }
 
-    int currentSaldo = Accounts.getCurrentSaldo(id);
+    int? currentSaldo = Accounts.getCurrentSaldo(id);
     if (currentSaldo == 0)
     {
         Console.WriteLine("This account do not have enough money to pay off any loans!");
@@ -394,10 +357,10 @@ void paySalaryToAllCustomersMainAccount()
     Console.Write("How much would you like to pay everyone in salery?: ");
     string value = int.Parse(Console.ReadLine()).ToString();
 
-    List<Dictionary<string, string>> customers = BLL.Customers.getAllCustomers();
+    List<Customer> customers = Customers.getAllCustomers();
     customers.ForEach(customer =>
     {
-        Accounts.addMoneyToSaldo(value, customer["mainAccountId"]);
+        Accounts.addMoneyToSaldo(value, customer.mainAccountId);
         Console.WriteLine("");
     });
     MainMeny();
@@ -419,7 +382,7 @@ void addCustomerToAccount()
         return;
     }
 
-    string name = Accounts.GetAccountById(id)["name"];
+    string name = Accounts.GetAccountById(id).name;
     Console.Write("What customer id should be added to " + name + ": ");
 
     string customerId;
@@ -456,7 +419,7 @@ void removeCustomerToAccount()
         return;
     }
 
-    string name = Accounts.GetAccountById(id)["name"];
+    string name = Accounts.GetAccountById(id).name;
     Console.Write("What customer id should be removed from" + name + ": ");
 
     string customerId;
@@ -475,6 +438,26 @@ void removeCustomerToAccount()
     Console.WriteLine(Accounts.removeCustomerToAccount(customerId, id));
     Console.WriteLine("");
     MainMeny();
+}
+
+
+void printCustomer (Customer customer)
+{
+    Console.WriteLine(customer.name + ":");
+    Console.WriteLine("    Id: " + customer.id);
+    Console.WriteLine("    Birthday: " + customer.birthDay);
+    Console.WriteLine("    Main account: " + customer.mainAccountId);
+    Console.WriteLine("");
+}
+
+void printAccount (Account account)
+{
+    Console.WriteLine("        Id: " + account.id);
+    Console.WriteLine("        customerId: " + account.customerId);
+    Console.WriteLine("        Account name: " + account.name);
+    Console.WriteLine("        Current loan: " + account.loan);
+    Console.WriteLine("        Saldo: " + account.mainSaldo);
+    Console.WriteLine("");
 }
 
 MainMeny();

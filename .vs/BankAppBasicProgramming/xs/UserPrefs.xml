@@ -1,31 +1,31 @@
 ﻿<Properties StartupConfiguration="{D1AF7316-63B9-43A8-AB3D-D1664CE0D7E7}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DAL/Class1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BankAppBasicProgramming/Program.cs">
     <Files>
-      <File FileName="BankAppBasicProgramming/Program.cs" Line="4" Column="1" />
-      <File FileName="BLL/Class1.cs" Line="1" Column="1" />
-      <File FileName="DAL/Class1.cs" Line="8" Column="1" />
+      <File FileName="BankAppBasicProgramming/Program.cs" Line="26" Column="6" />
+      <File FileName="BLL/Accounts.cs" />
+      <File FileName="BLL/Customers.cs" />
+      <File FileName="DAL/Database.cs" />
+      <File FileName="DAL/accounts.json" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="BankAppBasicProgramming" expanded="True">
-            <Node name="BankAppBasicProgramming" expanded="True" />
-            <Node name="BLL" expanded="True" />
-            <Node name="DAL" expanded="True">
-              <Node name="Class1.cs" selected="True" />
+          <Node name="BankAppBasicProgramming">
+            <Node name="BankAppBasicProgramming" expanded="True">
+              <Node name="Program.cs" selected="True" />
             </Node>
+            <Node name="BLL" expanded="True" />
+            <Node name="DAL" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.DAL FirstBuild="True" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.BLL FirstBuild="True" />
-  <MonoDevelop.Ide.ItemProperties.BankAppBasicProgramming FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.BankAppBasicProgramming PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
